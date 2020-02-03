@@ -11,15 +11,33 @@
 
 <body>
   <h1>Todo List</h1>
-  
-<!-- Old style buttons:
+
+  <!-- Old style buttons:
   <button id="displayTodosButton">Display Todos</button>
   <button id="toggleAllButton">Toggle All</button> -->
 
-  <button onclick="handlers.displayTodos()">Display Todos</button>
-  <button onclick="handlers.toggleAll()">Toggle All</button>
+  <div>
+    <button onclick="handlers.displayTodos()">Display Todos</button>
+    <button onclick="handlers.toggleAll()">Toggle All</button>
+  </div>
 
-   <script src="script.js"></script>
+  <div>
+    <button onclick="handlers.addTodo()">Add</button>
+    <input id="addTodoTextInput" type="text">
+  </div>
+
+  <div>
+    <button onclick="handlers.changeTodo()">ChangeTodo</button>
+    <input id="changeTodoPositionInput" type="number">
+    <input id="changetodoTextInput" type="text">
+  </div>
+
+  <div>
+    <button onclick="handlers.deleteTodo()">Delete</button>
+    <input id="deleteTodoPositionInput" type="number">
+  </div>
+
+  <script src="script.js"></script>
 </body>
 
 </html>
