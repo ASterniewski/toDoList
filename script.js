@@ -21,23 +21,31 @@ const todoList = {
     let completedTodos = 0;
 
     // Get number of completed todos
-    for (let i = 0; i < totalTodos; i++) {
-      if (this.todos[i].completed === true) {
-        completedTodos++;
-      }
-    }
+        this.todos.forEach(function(todo) {
+            if(todo.completed === true) {
+              completedTodos++;
+            }
+        });
     // Case 1: if everything's true, make everything false
-    if (completedTodos === totalTodos) {
-      // make everything false
-      for (let i = 0; i < totalTodos; i++) {
-        this.todos[i].completed = false;
+    // if (completedTodos === totalTodos) {
+    //   this.todos.forEach(function(todo) {
+    //     todo.completed = false;
+    //   });
+    //   // Case 2: otherwise make everything true
+    // } else {
+    //   this.todos.forEach(function(todo) {
+    //     todo.completed = true;
+    //   });
+    // }
+    this.todos.forEach(function(todo) {
+    // Case 1: if everything's true, make everything false
+      if(completedTodos === totalTodos) {
+        todo.completed = false;
+    // Case 2: otherwise make everything true   
+      } else {
+        todo.completed = true;
       }
-      // Case 2: otherwise make everything true
-    } else {
-      for (let i = 0; i < totalTodos; i++) {
-        this.todos[i].completed = true;
-      }
-    }
+    });
   }
 };
 
@@ -89,22 +97,20 @@ const view = {
   displayTodos: function () {
     let todosUl = document.querySelector('ul');
     todosUl.innerHTML = '';
-    for (let i = 0; i < todoList.todos.length; i++) {
+    todoList.todos.forEach(function(todo, position) {
       let todoLi = document.createElement('li');
-      let todo = todoList.todos[i];
       let todoTextWithCompletion = '';
 
       if (todo.completed === true) {
         todoTextWithCompletion = '(x) ' + todo.todoText;
       } else {
         todoTextWithCompletion = '( ) ' + todo.todoText;
-      };
-
-      todoLi.id = i;
+      }
+      todoLi.id = position;
       todoLi.textContent = todoTextWithCompletion;
       todoLi.appendChild(this.createDeleteButton());
       todosUl.appendChild(todoLi);
-    }
+    }, this);
   },
   createDeleteButton: function () {
     const deleteButton = document.createElement('button');
@@ -114,11 +120,9 @@ const view = {
   },
   setUpEventListeners: function () {
     const todosUl = document.querySelector('ul');
-
     todosUl.addEventListener('click', function (event) {
       // get the element that was clicked on
       let elementClicked = event.target;
-
       // check if element clicked is delete button
       if (elementClicked.className === 'deleteButton') {
         handlers.deleteTodo(parseInt(elementClicked.parentNode.id));
